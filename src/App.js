@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/header/Header";
+import Home from "./components/Home";
+import HowItWorks from "./components/main/HowItWorks";
+import Meals from "./components/main/Meals";
+import Pricing from "./components/main/Pricing";
+import Testemonials from "./components/main/Testemonials";
+import Cart from "./components/UI/Cart";
+import "./general.css";
 
 function App() {
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  function showCart() {
+    setCartIsShown(true);
+  }
+
+  function hideCart() {
+    setCartIsShown(false);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {cartIsShown && <Cart onClose={hideCart} />}
+      <Header onShowCart={showCart} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="how" element={<HowItWorks />} />
+        <Route path="meals" element={<Meals />} />
+        <Route path="testemonials" element={<Testemonials />} />
+        <Route path="pricing" element={<Pricing />} />
+      </Routes>
+    </>
   );
 }
-
 export default App;
